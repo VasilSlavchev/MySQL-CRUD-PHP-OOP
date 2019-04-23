@@ -2,7 +2,17 @@
 include('class/mysql_crud.php');
 $db = new Database();
 $db->connect();
-$data = $db->escapeString("name5@email.com"); // Escape any input before insert
-$db->insert('CRUDClass',array('name'=>'Name 5','email'=>$data));  // Table name, column names and respective values
-$res = $db->getResult();  
+// $email = $db->escapeString($email); // Escape any input before insert
+
+$k = 500;
+for ($i=1; $i < $k; $i++) {
+    $name = "name".$i;
+    $email = "email".$i."@email.com";
+    $array_in = array('name'=>$name,'email'=>$email);
+    $db->insert('CRUDClass', $array_in);  // Table name, column names and respective values
+    $res = $db->getResult();
+    // print_r($array_in);
+}
+//print results
 print_r($res);
+echo "inserted rows in database.";

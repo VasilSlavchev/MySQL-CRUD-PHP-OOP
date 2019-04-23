@@ -5,17 +5,17 @@
  * @Package Database
  */
 class Database{
-	/* 
+	/*
 	 * Create variables for credentials to MySQL database
 	 * The variables have been declared as private. This
-	 * means that they will only be available with the 
+	 * means that they will only be available with the
 	 * Database class
 	 */
 	private $db_host = "localhost";  // Change as required
-	private $db_user = "user";  // Change as required
-	private $db_pass = "password";  // Change as required
-	private $db_name = "database";	// Change as required
-	
+	private $db_user = "root";  // Change as required
+	private $db_pass = "";  // Change as required
+	private $db_name = "users_test_database";	// Change as required
+
 	/*
 	 * Extra variables that are required by other function such as boolean con variable
 	 */
@@ -23,7 +23,7 @@ class Database{
 	private $result = array(); // Any results from a query will be stored here
     private $myQuery = "";// used for debugging process with SQL return
     private $numResults = "";// used for returning the number of rows
-	
+
 	// Function to make connection to database
 	public function connect(){
 		if(!$this->con){
@@ -34,18 +34,18 @@ class Database{
                 	$this->con = true;
                     return true;  // Connection has been made return TRUE
                 }else{
-                	array_push($this->result,mysql_error()); 
+                	array_push($this->result,mysql_error());
                     return false;  // Problem selecting database return FALSE
-                }  
+                }
             }else{
             	array_push($this->result,mysql_error());
                 return false; // Problem connecting return FALSE
-            }  
-        }else{  
-            return true; // Connection has already been made return TRUE 
-        }  	
+            }
+        }else{
+            return true; // Connection has already been made return TRUE
+        }
 	}
-	
+
 	// Function to disconnect from the database
     public function disconnect(){
     	// If there is a connection to the database
@@ -62,7 +62,7 @@ class Database{
 			}
 		}
     }
-	
+
 	public function sql($sql){
 		$query = @mysql_query($sql);
         $this->myQuery = $sql; // Pass back the SQL
@@ -90,7 +90,7 @@ class Database{
 			return false; // No rows where returned
 		}
 	}
-	
+
 	// Function to SELECT from the database
 	public function select($table, $rows = '*', $join = null, $where = null, $order = null, $limit = null){
 		// Create query from the variables passed to the function
@@ -139,7 +139,7 @@ class Database{
       		return false; // Table does not exist
     	}
     }
-	
+
 	// Function to insert into the database
     public function insert($table,$params=array()){
     	// Check to see if the table exists
@@ -158,7 +158,7 @@ class Database{
         	return false; // Table does not exist
         }
     }
-	
+
 	//Function to delete table or row(s) from database
     public function delete($table,$where = null){
     	// Check to see if table exists
@@ -182,7 +182,7 @@ class Database{
             return false; // The table does not exist
         }
     }
-	
+
 	// Function to update row in database
     public function update($table,$params=array(),$where){
     	// Check to see if table exists
@@ -208,7 +208,7 @@ class Database{
             return false; // The table does not exist
         }
     }
-	
+
 	// Private function to check if table exists for use with queries
 	private function tableExists($table){
 		$tablesInDb = @mysql_query('SHOW TABLES FROM '.$this->db_name.' LIKE "'.$table.'"');
@@ -221,7 +221,7 @@ class Database{
             }
         }
     }
-	
+
 	// Public function to return the data to the user
     public function getResult(){
         $val = $this->result;
@@ -247,4 +247,4 @@ class Database{
     public function escapeString($data){
         return mysql_real_escape_string($data);
     }
-} 
+}
