@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Register Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <form class="form" action="register.php" method="post">
+        <div>
+            <label class="label">
+                <p>Username</p>
+                <input type="text" name="username" id="username" value="Vaseto">
+                <p class="error"></p>
+            </label>
+        </div>
+        <div>
+            <label class="label">
+                <p>First Name</p>
+                <input type="text" name="fname" id="fname" value="Vaseto">
+                <p class="error"></p>
+            </label>
+        </div>
+        <div>
+            <label class="label">
+                <p>Last Name</p>
+                <input type="text" name="lname" id="lname" value="Vaseto">
+                <p class="error"></p>
+            </label>
+        </div>
+        <div>
+            <label class="label">
+                <p>Email</p>
+                <input type="text" name="email" id="email" value="Vaseto@aadsadsa.com">
+                <p class="error"></p>
+            </label>
+        </div>
+        <div>
+            <label class="label">
+                <p>Password</p>
+                <input type="text" name="password" id="password" value="123456">
+                <p class="error"></p>
+            </label>
+        </div>
+         <div>
+            <label class="label">
+                <p>Repeat password</p>
+                <input type="text" name="confirm_password" id="confirm_password" value="12345">
+                <p class="error"></p>
+            </label>
+        </div>
+        <div>
+            <label class="label">
+                <p>City</p>
+                <input type="text" name="city" id="city" value="City">
+                <p class="error"></p>
+            </label>
+        </div>
+        <div>
+            <label class="label">
+                <p>Post Code</p>
+                <input type="text" name="postcode" id="postcode" value="4444">
+                <p class="error"></p>
+            </label>
+        </div>
+
+        <div>
+            <label class="label">
+                <p>Age</p>
+                <input type="text" name="age" id="age" value="25">
+                <p class="error"></p>
+            </label>
+        </div>
+        <div>
+            <label class="label">
+                <p>Gender</p>
+                <input type="radio" name="gender" value="male" checked>Male<br>
+                <input type="radio" name="gender" value="female">Female<br>
+                <input type="radio" name="gender" value="alien">Alien
+                <p class="error"></p>
+            </label>
+        </div>
+
+        <input type="submit" value="Check data for errors" name="submit" id="btn">
+        <input type="submit" value="Process to register" name="submit" id="btn2">
+    </form>
+
+</div>
+
+    <script type="text/javascript">
+        var min = 3;
+        var max = 32;
+        var btn = document.getElementById('btn');
+        var btn2 = document.getElementById('btn2');
+
+        var arr = [
+            username = {
+                id: 'username',
+                msg_short:  'Please enter username more than 3 chars',
+                msg_long:   'Please enter username at least 25 chars',
+                msg_empty:  'Please enter your details.',
+                msg_patt:   'Username не отговаря на изискванията (3-25 chars,възможни са тирета, без специални знаци)',
+                msg_succes: 'Perfect.',
+                pattern:    '^([а-яА-Яa-zA-z-\\s]{2,})$'
+            },
+            fname = {
+                id: 'fname',
+                msg_short:  'Please enter name more than 3 chars',
+                msg_long:   'Please enter name at least 25 chars',
+                msg_empty:  'Please enter your details.',
+                msg_patt:   'Името не отговаря на изискванията (3-25 chars,възможни са тирета, без специални знаци)',
+                msg_succes: 'Perfect.',
+                pattern:    '^([а-яА-Яa-zA-z-\\s]{2,})$'
+            },
+            lname = {
+                id: 'lname',
+                msg_short:  'Please enter name more than 3 chars',
+                msg_long:   'Please enter name at least 25 chars',
+                msg_empty:  'Please enter your details.',
+                msg_patt:   'Името не отговаря на изискванията (3-25 chars,възможни са тирета, без специални знаци)',
+                msg_succes: 'Perfect.',
+                pattern:    '^([а-яА-Яa-zA-z-\\s]{2,})$'
+            },
+            city = {
+                id: 'city',
+                msg_short:  'Please enter name more than 3 chars',
+                msg_long:   'Please enter name at least 35 chars',
+                msg_empty:  'Please enter your details.',
+                msg_patt:   'Името не отговаря на изискванията (3-35 chars,възможни са тирета и интервали, без специални знаци)',
+                msg_succes: 'Perfect.',
+                pattern:    '^([а-яА-Яa-zA-z-\\\s]{2,})$'
+            },
+            email = {
+                id: 'email',
+                msg_short:  'Email is too short.',
+                msg_long:   'Email is too long.',
+                msg_empty:  'Please enter email address.',
+                msg_patt:   'Изискване за email address (standart email address).',
+                msg_succes: 'Perfect.',
+                // pattern:    '^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+                pattern:    '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$'
+            },
+            postcode = {
+                id: 'postcode',
+                msg_short:  'Post code is too short.',
+                msg_long:   'Post code is too long.',
+                msg_empty:  'Please enter post code',
+                msg_patt:   'Изискване за post code: 4 цифри, без букви и специални символи',
+                msg_succes: 'Perfect.',
+                pattern:    '^\\d\\S{3,3}$'
+            },
+            password = {
+                id: 'password',
+                msg_short:  'Пролата трябва да е поне 6 chars',
+                msg_long:   'Паролата не може да е повече от 90 chars',
+                msg_empty:  'Please enter парола',
+                msg_patt:   'Изискване за парола: между 6 и 90 chars',
+                msg_succes: 'Perfect.',
+                pattern:    '^(.{6,90})$'
+            },
+            confirm_password = {
+                id: 'confirm_password',
+                msg_short:  'Паролите не съвпадат',
+                msg_long:   'Паролите не съвпадат',
+                msg_empty:  'Please enter парола',
+                msg_patt:   'Паролите не съвпадат',
+                msg_succes: 'Perfect.'
+            }
+        ];
+
+        function check(e) {
+            for (var i = 0; i < arr.length; i++) {
+
+                el = document.getElementById(arr[i].id);
+                el_val = document.getElementById(arr[i].id).value;
+                valToCompare = document.getElementById('password').value;
+
+                if(el_val === '') {
+                    el.nextElementSibling.innerHTML = arr[i].msg_empty;
+                    el.nextElementSibling.style.cssText = 'background: red; color: white; padding: 10px;';
+                    e.preventDefault();
+                }
+                else {
+                    if(el_val.length < min) {
+                        el.nextElementSibling.innerHTML = arr[i].msg_short;
+                        el.nextElementSibling.style.cssText = 'background: red; color: white; padding: 10px;';
+                        e.preventDefault();
+                    }
+                    else if(el_val.length > max) {
+                        el.nextElementSibling.innerHTML = arr[i].msg_long;
+                        el.nextElementSibling.style.cssText = 'background: red; color: white; padding: 10px;';
+                        e.preventDefault();
+                    }
+                    else if(!el_val.match(arr[i].pattern)) {
+                        el.nextElementSibling.innerHTML = arr[i].msg_patt;
+                        el.nextElementSibling.style.cssText = 'background: blue; color: white; padding: 10px;';
+                        e.preventDefault();
+                    }
+                    else if (arr[i].id == 'confirm_password') {
+                        if ( el_val !== valToCompare) {
+                            el.nextElementSibling.innerHTML = arr[i].msg_patt;
+                            el.nextElementSibling.style.cssText = 'background: red; color: white; padding: 10px;';
+                            e.preventDefault();
+                        }
+                        else {
+                            el.nextElementSibling.innerHTML = arr[i].msg_succes;
+                            el.nextElementSibling.style.cssText = 'background: green; color: white; padding: 10px;';
+                            e.preventDefault();
+                        }
+                    }
+                    else {
+                        el.nextElementSibling.innerHTML = arr[i].msg_succes;
+                        el.nextElementSibling.style.cssText = 'background: green; color: white; padding: 10px;';
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+
+        btn.addEventListener('click', function(e){
+            check(e);
+            e.preventDefault();
+        }, false);
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+.container {
+    max-width: 960px;
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+    margin: 5px 0;
+}
+
+.form {
+    max-width: 300px;
+}
+
+input[type="text"] {
+    width: 92%;
+    padding: 4px 10px;
+}
